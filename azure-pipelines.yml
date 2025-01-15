@@ -67,4 +67,6 @@ stages:
         azureSubscription: 'AzureDevOps(072c1136-ad60-4101-bdf4-e28f1f37a213)'
         appType: 'webApp'
         WebAppName: 'dotnetcore-mvc'
-        packageForLinux: '$(build.artifactstagingdirectory)/**/*.zip'
+        packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
+      
+  
