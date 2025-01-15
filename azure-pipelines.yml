@@ -61,12 +61,18 @@ stages:
     displayName: 'Deploy Job'
     
     steps:
+    
+    - task: DownloadBuildArtifacts@1
+      inputs:
+        buildType: 'current'
+        downloadType: 'specific'
+        downloadPath: '$(System.ArtifactsDirectory)'
     - task: AzureRmWebAppDeployment@4
       inputs:
         ConnectionType: 'AzureRM'
         azureSubscription: 'AzureDevOps(072c1136-ad60-4101-bdf4-e28f1f37a213)'
         appType: 'webApp'
         WebAppName: 'dotnetcore-mvc'
-        packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
+        packageForLinux: '$(System.ArtifactsDirectory)/**/*.zip'
       
   
