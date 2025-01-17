@@ -54,13 +54,6 @@ stages:
       inputs:
         PathtoPublish: '$(build.artifactstagingdirectory)'
 
-- stage: DeployStage
-  displayName: 'Deploy Stage'
-  jobs:
-  - job: DeployJob
-    displayName: 'Deploy Job'
-    
-    steps:
     - task: DownloadBuildArtifacts@1
       inputs:
         buildType: 'current'
