@@ -54,6 +54,13 @@ stages:
       inputs:
         PathtoPublish: '$(build.artifactstagingdirectory)'
 
+- stage: DeployStage
+  displayName: 'Deploy Stage'
+  jobs:
+  - job: DeployJob
+    displayName: 'Deploy Job'
+    
+    steps:
     - task: DownloadBuildArtifacts@1
       inputs:
         buildType: 'current'
@@ -65,6 +72,6 @@ stages:
         azureSubscription: 'AzureDevOps(072c1136-ad60-4101-bdf4-e28f1f37a213)'
         appType: 'webApp'
         WebAppName: 'dotnetcore-mvc'
-        packageForLinux: '/home/vsts/work/1/a/drop/WebApp.zip'
+        packageForLinux: '$(System.ArtifactsDirectory)/WebApp.zip'
       
   
