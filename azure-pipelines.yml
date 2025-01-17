@@ -27,6 +27,17 @@ stages:
       inputs:
         command: restore
         projects: '**/WebApp.csproj'
+    
+    - task: PowerShell@2
+      inputs:
+        filePath: 'sonar-add-project-guid.ps1'
+    - task: SonarCloudPrepare@3
+      inputs:
+        SonarQube: 'SonarQube-cloud'
+        organization: 'jkiran307'
+        scannerMode: 'dotnet'
+        projectKey: 'WebAppWithDatabaseDemo'
+        projectName: 'WebAppWithDatabaseDemo'
 
     - task: DotNetCoreCLI@2
       displayName: Build Web App
@@ -53,6 +64,14 @@ stages:
       displayName: 'Publish Artifact (WebApp.zip)'
       inputs:
         PathtoPublish: '$(build.artifactstagingdirectory)'
+    
+    - task: SonarCloudAnalyze@3
+      inputs:
+        jdkversion: 'JAVA_HOME_17_X64'
+    
+    - task: SonarCloudPublish@3
+      inputs:
+        pollingTimeoutSec: '300'
 
     - task: DownloadBuildArtifacts@1
       inputs:
